@@ -1,4 +1,4 @@
-USE DataStoringCapstone;
+USE warehousing_capstone;
 
 # Sales
 

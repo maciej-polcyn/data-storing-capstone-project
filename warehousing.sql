@@ -1,4 +1,4 @@
-USE DataStoringCapstone;
+USE warehousing_capstone;
 
 # Helper query for checking the longest string in column
 SELECT MAX(len) AS longest
@@ -35,7 +35,7 @@ DROP VIEW IF EXISTS sales_update;
 CREATE VIEW sales_update AS (
 WITH multiple_words AS (SELECT Maker
                         FROM (SELECT DISTINCT Maker,
-                                              (LENGTH(Maker) - LENGTH(REPLACE(Maker, ' ', '')) + 1) AS no_words
+                                              (LENGTH(Maker) - LENGTH(REPLACE(Maker, " ", "")) + 1) AS no_words
                               FROM sales) words
                         WHERE no_words > 1)
 SELECT
@@ -162,6 +162,10 @@ CREATE TABLE sales_FACT_finished (
 INSERT INTO sales_FACT_finished
 SELECT model_key, year, number_sold
 FROM sales_FACT_unpivot
-ORDER BY model_key, year
+ORDER BY model_key, year;
+
+DROP TABLE sales_FACT_unpivot;
+
+RENAME TABLE sales_FACT_finished TO sales_FACT_unpivot;
 
 
