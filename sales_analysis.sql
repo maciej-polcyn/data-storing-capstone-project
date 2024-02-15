@@ -25,23 +25,7 @@ ORDER BY Genmodel_ID;
 # Some models have up to 5 different names, that are slightly different subtypes of the same model.
 # Others, on the other hand, have only 2 values and differences are irrelevant.
 
-# Removing brand name from Genmodel values
-CREATE VIEW names AS
-(
-WITH multiple_words AS (SELECT Maker
-                        FROM (SELECT DISTINCT Maker,
-                                              (LENGTH(Maker) - LENGTH(REPLACE(Maker, ' ', '')) + 1) AS no_words
-                              FROM sales) words
-                        WHERE no_words > 1)
-SELECT Maker,
-       CASE
-           WHEN Maker IN (SELECT Maker FROM multiple_words)
-               THEN TRIM(TRIM(LEADING SUBSTRING_INDEX(Genmodel, " ", 2) FROM Genmodel))
-           ELSE TRIM(TRIM(LEADING SUBSTRING_INDEX(Genmodel, " ", 1) FROM Genmodel))
-           END AS Model
-FROM sales
-ORDER BY Maker
-    );
+# For this exercise I choose to assign separate key for each model name.
 
 
 

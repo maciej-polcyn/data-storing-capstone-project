@@ -1,4 +1,21 @@
 USE warehousing_capstone;
+# Removing brand name from Genmodel values
+CREATE VIEW names AS
+(
+WITH multiple_words AS (SELECT Maker
+                        FROM (SELECT DISTINCT Maker,
+                                              (LENGTH(Maker) - LENGTH(REPLACE(Maker, ' ', '')) + 1) AS no_words
+                              FROM sales) words
+                        WHERE no_words > 1)
+SELECT Maker,
+       CASE
+           WHEN Maker IN (SELECT Maker FROM multiple_words)
+               THEN TRIM(TRIM(LEADING SUBSTRING_INDEX(Genmodel, " ", 2) FROM Genmodel))
+           ELSE TRIM(TRIM(LEADING SUBSTRING_INDEX(Genmodel, " ", 1) FROM Genmodel))
+           END AS Model
+FROM sales
+ORDER BY Maker
+    );
 
 # Helper query for checking the longest string in column
 SELECT MAX(len) AS longest
@@ -123,7 +140,7 @@ WHERE model_key IN (SELECT model_key FROM duplicates);
 INSERT INTO sales_FACT
 SELECT * FROM duplicates;
 
-# Unpivoting table
+# Un-pivoting table
 CREATE TABLE sales_FACT_unpivot AS (
 SELECT s.model_key, p.*
 FROM sales_FACT s
