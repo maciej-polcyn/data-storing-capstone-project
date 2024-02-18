@@ -9,4 +9,4 @@
     6. warehousing_ads_fact.
     
 ## Model implementation diagram
-![data_storing_capstone_implementation.png]
+![data_storing_capstone_implementation.png](data_storing_capstone_implementation.png)
