@@ -7,3 +7,6 @@
     4. warehousing_optimized
     5. ads_import
     6. warehousing_ads_fact.
+    
+## Model implementation diagram
+![data_storing_capstone_implementation.png]
