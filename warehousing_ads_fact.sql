@@ -231,9 +231,19 @@ SELECT
     gearbox_type_id,
     fuel_type_id
 FROM ads_fact_draft;
-# Data loss to fix - happened while creating ads_fact_draft_view
-# Try to update values directly in the Ads table instead of creating a view
 
-SELECT
-    (SELECT COUNT(*) FROM ads) as source,
-    (SELECT COUNT(*) FROM Ads_FACT) as fact
+# Alternative method with direct update
+UPDATE ads
+SET Maker = (SELECT brand_key FROM Brands_DIM b WHERE ads.Maker = b.name),
+    Color = (SELECT color_id FROM Colors_DIM c WHERE ads.Color = c.name),
+    Body_Type = (SELECT body_type_id FROM Body_Types_DIM bt WHERE ads.Body_Type = bt.type),
+    Gearbox_Type = (SELECT gearbox_type_id FROM Gearbox_Types_DIM gt WHERE ads.Gearbox_Type = gt.type),
+    Fuel_Type = (SELECT fuel_type_id FROM Fuel_Types_DIM ft WHERE ads.Fuel_Type = ft.type);
+
+ALTER TABLE ads
+    ADD COLUMN Date INT;
+
+UPDATE ads
+SET
+    Genmodel = (SELECT model_key FROM Models_DIM m WHERE ads.Genmodel = m.name AND ads.Maker = m.brand_key),
+    Date = (SELECT date_ID FROM Dates_DIM d WHERE ads.Adv_Year = d.year AND ads.Adv_Month = d.month_short_name);
