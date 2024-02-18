@@ -2,9 +2,8 @@
 # SHOW VARIABLES LIKE "secure_file_priv";
 
 # Creating database
-CREATE DATABASE IF NOT EXISTS warehousing_capstone;
-
-USE warehousing_capstone;
+CREATE DATABASE IF NOT EXISTS capstone_extended;
+USE capstone_extended;
 
 # Creating sales table
 DROP TABLE IF EXISTS sales;

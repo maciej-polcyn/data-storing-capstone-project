@@ -1,4 +1,4 @@
-USE warehousing_capstone;
+USE capstone_extended;
 
 DELIMITER $$
 CREATE PROCEDURE UpdateSalesGenmodel()
@@ -21,6 +21,3 @@ END$$
 DELIMITER ;
 
 CALL UpdateSalesGenmodel();
-
-SELECT * FROM sales
-ORDER BY Maker;

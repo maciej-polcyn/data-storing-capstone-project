@@ -1,4 +1,4 @@
-USE warehousing_capstone;
+USE capstone_extended;
 
 # Helper query for checking the longest string in column
 SELECT MAX(len) AS longest
@@ -8,8 +8,11 @@ FROM sales) x;
 # Creating Brands_DIM table
 CREATE TABLE Brands_DIM (
     brand_key INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name NVARCHAR(25)
+    name NVARCHAR(55)
 );
+
+ALTER TABLE Brands_DIM
+    AUTO_INCREMENT=100;
 
 INSERT INTO Brands_DIM (name)
 SELECT DISTINCT Maker
@@ -19,13 +22,18 @@ FROM sales;
 CREATE TABLE Models_DIM (
     model_key INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name NVARCHAR(30),
+    genmodel_ID NVARCHAR(15),
     brand_key INT NOT NULL,
     FOREIGN KEY (brand_key) REFERENCES Brands_DIM (brand_key)
 );
 
-INSERT INTO Models_DIM (name, brand_key)
+ALTER TABLE Models_DIM
+    AUTO_INCREMENT=1000;
+
+INSERT INTO Models_DIM (name, genmodel_ID, brand_key)
 SELECT
     DISTINCT Genmodel,
+    Genmodel_ID,
     brand_key AS brand_key
 FROM sales s
 JOIN Brands_DIM b ON b.name = s.Maker;
