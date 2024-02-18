@@ -4,4 +4,6 @@
     1. sales_import
     2. sales_analysis
     3. update_sales_procedure
-    4. warehousing_optimized.
+    4. warehousing_optimized
+    5. ads_import
+    6. warehousing_ads_fact.
