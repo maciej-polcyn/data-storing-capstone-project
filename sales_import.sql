@@ -34,7 +34,7 @@ CREATE TABLE sales (
 );
 
 # Inserting values into sales table
-LOAD DATA INFILE '/Users/mpolcyn/DataGripProjects/DW_Capstone/Sales_table.csv'
+LOAD DATA INFILE 'Sales_table.csv'
 INTO TABLE  sales
 FIELDS TERMINATED BY ','
 IGNORE 1 LINES;

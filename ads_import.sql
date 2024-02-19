@@ -28,7 +28,7 @@ CREATE TABLE ads (
     Door_Num NVARCHAR(255)
 );
 
-LOAD DATA INFILE '/Users/mpolcyn/DataGripProjects/DW_Capstone/capstone_data_NULL.csv'
+LOAD DATA INFILE 'capstone_data_NULL.csv'
 INTO TABLE  ads
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
@@ -63,7 +63,7 @@ IGNORE 1 LINES;
 # );
 #
 # # Loading data into ads table
-# LOAD DATA INFILE '/Users/mpolcyn/DataGripProjects/DW_Capstone/capstone_data_clean.csv'
+# LOAD DATA INFILE 'capstone_data_clean.csv'
 # INTO TABLE  ads
 # FIELDS TERMINATED BY ','
 # LINES TERMINATED BY '\n'
